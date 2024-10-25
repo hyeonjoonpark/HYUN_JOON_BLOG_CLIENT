@@ -73,11 +73,10 @@ export default function ClientHome() {
           <Image
             src="/profile-image.jpg"
             alt="프로필 이미지"
-            width={100}
-            height={100}
-            className="rounded-full mb-4 border-2 border-gray-300"
+            width={500}
+            height={500}
             onError={(e) => {
-              e.currentTarget.src = "https://via.placeholder.com/100"
+              e.currentTarget.src = "/default-profile-image.jpg"
             }}
           />
           <h2 className="text-xl font-bold text-gray-800 mb-2">hyunjoon park</h2>

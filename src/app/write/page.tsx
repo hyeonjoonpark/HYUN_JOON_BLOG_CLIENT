@@ -1,32 +1,19 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import 'react-quill/dist/quill.snow.css';
 import { handleSubmit, PostData } from '@/utils/postUtils';
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const TinyMCEEditor = dynamic(() => import('@/components/TinyMCEEditor'), { ssr: false });
 
 export default function WritePage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [isClient, setIsClient] = useState(false);
 
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      ['link', 'image'],
-      ['clean'],
-    ],
-  };
-
-  const formats = [
-    'header',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet',
-    'link', 'image'
-  ];
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const onSubmit = () => {
     const postData: PostData = { title, content };
@@ -54,14 +41,15 @@ export default function WritePage() {
               작성 완료
             </button>
           </div>
-          <ReactQuill
-            theme="snow"
-            value={content}
-            onChange={setContent}
-            modules={modules}
-            formats={formats}
-            className="h-[calc(100vh-250px)] lg:h-[calc(100vh-200px)]"
-          />
+          {isClient && (
+            <TinyMCEEditor
+              value={content}
+              onChange={(newContent: string) => {
+                console.log('에디터 내용:', newContent);
+                setContent(newContent);
+              }}
+            />
+          )}
         </div>
         
         {/* 실시간 미리보기 */}
