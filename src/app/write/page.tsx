@@ -22,7 +22,7 @@ export default function WritePage() {
 
   return (
     <div className="p-4 bg-white min-h-screen text-gray-800">
-      <h1 className="text-2xl font-bold mb-4 text-black">새 글 작성</h1>
+      <h1 className="text-2xl font-bold mb-4 text-black">블로그 작성하기</h1>
       <div className="flex flex-col lg:flex-row gap-4">
         {/* 입력 폼 */}
         <div className="w-full lg:w-1/2">
