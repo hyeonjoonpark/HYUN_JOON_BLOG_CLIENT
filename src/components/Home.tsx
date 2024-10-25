@@ -6,8 +6,35 @@ import { FaGithub, FaInstagram, FaExternalLinkAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import WriteButton from "./WriteButton";
 
+interface Portfolio {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl: string;
+  projectUrl: string;
+}
+
 export default function ClientHome() {
   const [activeTab, setActiveTab] = useState("posts");
+
+  // 포트폴리오 데이터 예시
+  const portfolios: Portfolio[] = [
+    {
+      id: 1,
+      title: "아리페이",
+      description: "이 프로젝트는 ...",
+      imageUrl: "/assets/project1.png",
+      projectUrl: "https://occount.bsm-aripay.kr"
+    },
+    {
+      id: 2,
+      title: "프로젝트 2",
+      description: "두 번째 프로젝트는 ...",
+      imageUrl: "/assets/project2.png",
+      projectUrl: "https://project2.com"
+    },
+    // 추가 포트폴리오 항목...
+  ];
 
   const renderContent = () => {
     switch (activeTab) {
@@ -60,6 +87,34 @@ export default function ClientHome() {
             {/* 추가 소개 내용... */}
           </div>
         );
+      case "portfolio":
+        return (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {portfolios.map((portfolio) => (
+              <div key={portfolio.id} className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <Image
+                  src={portfolio.imageUrl}
+                  alt={portfolio.title}
+                  width={400}
+                  height={200}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl font-bold mb-2 text-gray-800">{portfolio.title}</h3>
+                  <p className="text-gray-700 mb-4">{portfolio.description}</p>
+                  <a 
+                    href={portfolio.projectUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-blue-500 hover:text-blue-700"
+                  >
+                    프로젝트 보기
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        );
       default:
         return null;
     }
@@ -89,14 +144,7 @@ export default function ClientHome() {
         <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors mb-4">
           팔로우
         </button>
-        <a 
-          href="https://occount.bsm-aripay.kr/" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition-colors mb-4 flex items-center justify-center"
-        >
-          포트폴리오 보기 <FaExternalLinkAlt className="ml-2" size={14} />
-        </a>
+        
         <div className="flex justify-center space-x-4">
           <a href="https://github.com/hyeonjoonpark" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
             <FaGithub size={24} />
@@ -144,6 +192,15 @@ export default function ClientHome() {
                 className={activeTab === "about" ? "text-blue-500" : "text-gray-600 hover:text-gray-900"}
               >
                 소개
+              </a>
+            </li>
+            <li className={`pb-2 ${activeTab === "portfolio" ? "border-b-2 border-blue-500" : ""}`}>
+              <a
+                href="#"
+                onClick={(e) => { e.preventDefault(); setActiveTab("portfolio"); }}
+                className={activeTab === "portfolio" ? "text-blue-500" : "text-gray-600 hover:text-gray-900"}
+              >
+                포트폴리오
               </a>
             </li>
           </ul>
