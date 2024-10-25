@@ -17,7 +17,7 @@ export default function ClientHome() {
             {/* 글 카드 */}
             <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
               <Image
-                src="/post-image.jpg"
+                src="/assets/image2.png"
                 alt="글 이미지"
                 width={400}
                 height={200}
@@ -71,7 +71,7 @@ export default function ClientHome() {
       <aside className="w-64 p-6 border-r border-gray-200">
         <div className="mb-8">
           <Image
-            src="/profile-image.jpg"
+            src="/assets/image.png"
             alt="프로필 이미지"
             width={500}
             height={500}
